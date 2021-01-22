@@ -1,0 +1,51 @@
+{% extends 'covid_app/base.html' %}
+
+{% block title %}Event List | COVID{% endblock %}
+
+
+{% block scanner %}
+<!--Scanner Section-->
+<div class="container align-content-center p-5">
+    <form action="/scan/" method="post" class="scan-new">{% csrf_token %}
+        <div class="input-group input-group-lg">
+            <span class="input-group-text" id="inputGroup-sizing-lg">Scanner</span>
+            <input type="text" class="form-control" aria-label="Scanner input" name="scanner" minlength="87"
+                   aria-describedby="inputGroup-sizing-lg" placeholder="Scan CAC here..." autofocus required>
+        </div>
+        <input type="hidden" name="location" value="{{ loc.pk }}">
+    </form>
+</div>
+{% endblock %}
+
+{% block content %}
+<!--Event Listing-->
+<div class="container-fluid">
+
+    <h1 class="text-white">Location:<span class="text-danger"> {{ loc.location }}</span></h1>
+
+    <table class="table table-sm table-hover bg-light">
+        <caption>List of Events</caption>
+        <thead>
+        <tr>
+            <th scope="col">Rank</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Unit</th>
+            <th scope="col">Arrived</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for event in events %}
+        <tr>
+            <th scope="row">{{ event.initiator.rank }}</th>
+            <th scope="row">{{ event.initiator.lname }}</th>
+            <th scope="row">{{ event.initiator.fname }}</th>
+            <th scope="row">{{ event.initiator.unit }}</th>
+            <th scope="row">{{ event.arrived|date:'Ymd@Hi' }}</th>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

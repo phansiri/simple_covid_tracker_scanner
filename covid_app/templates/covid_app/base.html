@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap-grid.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap-reboot.css' %}">
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body class="bg-dark">
+<!--Navigation-->
+<nav class="navbar smart-scroll navbar-expand-md navbar-light bg-info">
+    <a class="navbar-brand text-white" href="{% url 'event_list' %}">COIVD Check In Tracker</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link text-white" href="/admin/">Admin</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+{% block scanner %} {% endblock %}
+<!--Main Content Section-->
+{% block content %} {% endblock %}
+<!--Footer-->
+<footer class="text-center bg-info">
+    <span class="text-white">Powered by Django, Bootstrap, and eventually Data Science</span>
+    <div class="container"><small class="wrapper">Copyright © Lit Phansiri 2020 </small></div>
+</footer>
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+</html>
