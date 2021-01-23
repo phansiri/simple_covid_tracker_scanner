@@ -1,0 +1,16 @@
+{% extends 'covid_app/base.html' %}
+
+{% block title %}Set Location | COVID{% endblock %}
+
+
+{% block content %}
+<div class="container align-content-center p-5">
+    <form action="/set_location/" method="post" class="scan-new">{% csrf_token %}
+        <div class="input-group input-group-lg">
+            <span class="input-group-text" id="inputGroup-sizing-lg">Set Location</span>
+            <input type="text" class="form-control" aria-label="Location input" name="location" minlength="87"
+                   aria-describedby="inputGroup-sizing-lg" placeholder="Input Location..." autofocus required>
+        </div>
+    </form>
+</div>
+{% endblock %}

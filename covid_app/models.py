@@ -8,17 +8,9 @@ class Person(models.Model):
     branch = models.CharField(max_length=10)
     category = models.CharField(max_length=30)
     edipi = models.CharField(max_length=11)
-    unit = models.CharField(max_length=40, null=True, blank=True)
 
     def __str__(self):
         return f'{self.rank} {self.lname}, {self.fname}'
-
-
-class Unit(models.Model):
-    unit = models.CharField(max_length=30)
-
-    def __str__(self):
-        return self.unit
 
 
 class Location(models.Model):
