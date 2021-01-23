@@ -1,5 +1,5 @@
 from django import forms
-from .models import Event, Person, Scanner
+from .models import Event, Person, Scanner, Location
 
 
 class EventForm(forms.ModelForm):
@@ -21,3 +21,9 @@ class ScannerForm(forms.ModelForm):
     class Meta:
         model = Scanner
         fields = ('barcode',)
+
+class LocationForm(forms.ModelForm):
+
+    class Meta:
+        model = Location
+        fields = ('location',)

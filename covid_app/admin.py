@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Person, Event, Unit, Location
+from .models import Person, Event, Location
 
 
 @admin.register(Event)
@@ -14,9 +14,5 @@ class LocationAdmin(admin.ModelAdmin):
 
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
-    list_display = ('rank', 'lname', 'fname', 'branch', 'category', 'edipi', 'unit')
+    list_display = ('rank', 'lname', 'fname', 'branch', 'category', 'edipi')
 
-
-@admin.register(Unit)
-class UnitAdmin(admin.ModelAdmin):
-    list_display = ('unit',)
