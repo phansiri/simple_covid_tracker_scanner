@@ -1,0 +1,20 @@
+{% extends 'covid_app/base.html' %}
+
+{% block title %}Reports | COVID{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="jumbotron m-5">
+  <h1 class="display-4">Report</h1>
+  <p class="lead">Download the covid tracker at the end of the day.</p>
+  <hr class="my-4">
+  <p>This will automatically download for the current day. Do not forget. The feature to allow download for specific day
+  will come soon. If you do forget, the database still retains the data so do not worry.
+  </p>
+  <p class="lead align-content-center">
+    <a class="btn btn-primary btn-lg" href="{% url 'download_report' %}" role="button">Download for the day</a>
+  </p>
+</div>
+    </div>
+
+{% endblock %}
