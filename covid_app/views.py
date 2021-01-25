@@ -19,9 +19,12 @@ def event_list(request):
     else:
         loc = Location.objects.all()
 
+    todays_date = datetime.now()
+
     context = {
         'events': events,
         'loc': loc,
+        'date': todays_date
     }
     return render(request, 'covid_app/event_list.html', context)
 
@@ -31,7 +34,7 @@ def reports(request):
 
 
 def download_report(request):
-    events = Event.objects.all()
+    events = Event.objects.all().order_by('-arrived')
 
     timeframe = datetime.now()
 

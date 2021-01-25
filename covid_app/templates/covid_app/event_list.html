@@ -9,7 +9,7 @@
     <form action="/scan/" method="post" class="scan-new">{% csrf_token %}
         <div class="input-group input-group-lg">
             <span class="input-group-text" id="inputGroup-sizing-lg">Scanner</span>
-            <input type="text" class="form-control" aria-label="Scanner input" name="scanner" minlength="87"
+            <input type="text" class="form-control" aria-label="Scanner input" name="scanner"
                    aria-describedby="inputGroup-sizing-lg" placeholder="Scan CAC here..." autofocus required>
         </div>
         <input type="hidden" name="location" value="{{ loc.0.pk }}">
@@ -21,7 +21,8 @@
 <!--Event Listing-->
 <div class="container-fluid">
 
-    <h1 class="text-white">Location:<span class="text-danger"> {{ loc.0.location }}</span></h1>
+    <h1 class="text-white">Location: <span class="text-danger">{{ loc.0.location }}</span></h1>
+    <h2 class="text-white">Date: <span class="text-primary">{{ date|date:'Y-m-d' }}</span></h2>
 
     <table class="table table-sm table-hover bg-light">
         <caption>List of Events</caption>
@@ -36,6 +37,7 @@
         </thead>
         <tbody>
         {% for event in events %}
+        {% if event.arrived|date:'Y-m-d' == date|date:'Y-m-d' %}
         <tr>
             <th scope="row">{{ event.initiator.edipi }}</th>
             <th scope="row">{{ event.initiator.rank }}</th>
@@ -43,6 +45,7 @@
             <th scope="row">{{ event.initiator.fname }}</th>
             <th scope="row">{{ event.arrived|date:'Ymd@Hi' }}</th>
         </tr>
+        {% endif %}
         {% endfor %}
         </tbody>
     </table>
