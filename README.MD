@@ -18,7 +18,7 @@ SQL_PORT=5432
 4. Create `.env.db` in the `covid_project` directory with something like:
 
 ```.env
-POSTGRES_DB=hange_database_name
+POSTGRES_DB=change_database_name
 POSTGRES_USER=change_super_cool_user
 POSTGRES_PASSWORD=change_super_secret_password
 ```
@@ -28,4 +28,4 @@ POSTGRES_PASSWORD=change_super_secret_password
 3. There might be an error that the database does not exist.
    1. If so, run `docker-compose down -v` then `docker-compose up --build`
    2. Afterwards, in a different terminal at the same directory, you might need to apply the tables to the database with `docker-compose exec web python manage.py migrate`
-4. Open a browser and navigate to `[localhost:](http://localhost:8000/)`
+4. Open a browser and navigate to [localhost:8000](http://localhost:8000/)
