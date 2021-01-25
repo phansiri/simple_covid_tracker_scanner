@@ -29,3 +29,28 @@ POSTGRES_PASSWORD=change_super_secret_password
    1. If so, run `docker-compose down -v` then `docker-compose up --build`
    2. Afterwards, in a different terminal at the same directory, you might need to apply the tables to the database with `docker-compose exec web python manage.py migrate`
 4. Open a browser and navigate to [localhost:8000](http://localhost:8000/)
+
+
+## Creating a .desktop file for execution (ONLY WORKS ON UBUNTU OS)
+1. Have the docker-compose run on start up through the `Startup Application Preferences`
+1. Create the file as `example.desktop` to launch the browser to the correct url
+   Add the following
+   ```
+   [Desktop Entry]
+   Name=Example Name
+   Comment=Launch browser to running application
+   Exec=sh -c "path/to/run_me.sh"
+   Icon=/path/to/cool/icon.svg
+   Terminal=false
+   Type=Application
+   Version=1.0
+   ```   
+   Take note of the `run_me.sh`. You will have to create that file at the path you determined
+1. Create the `path/to/run_me.sh`. Inside it should look something like:
+   ```bash
+   #!/bin/bash
+   firefox http://localhost:8000   
+   ```
+2. ensure to make it executable with `chmod +x run_me.sh`
+1. Afterwards, make sure the example.desktop can be be launched by right clicking on it and select `Allow Launching`
+1. See the icon change.
