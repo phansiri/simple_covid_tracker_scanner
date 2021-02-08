@@ -12,7 +12,7 @@ from openpyxl import Workbook
 def event_list(request):
     events = Event.objects.all().order_by('-arrived')
     loc = Location.objects.exists()
-    print(loc)
+
 
     if loc is False:
         return render(request, 'covid_app/set_location.html')
@@ -20,11 +20,18 @@ def event_list(request):
         loc = Location.objects.all()
 
     todays_date = datetime.now()
+    event_counter = events.filter(arrived__year=todays_date.year, arrived__month=todays_date.month, arrived__day=todays_date.day)
+    print('**********************')
+    print(todays_date)
+    print(events[0].arrived)
+    print(event_counter)
+    print('**********************')
 
     context = {
         'events': events,
         'loc': loc,
-        'date': todays_date
+        'date': todays_date,
+        'event_counter': event_counter
     }
     return render(request, 'covid_app/event_list.html', context)
 
