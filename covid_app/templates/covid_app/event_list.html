@@ -5,7 +5,7 @@
 
 {% block scanner %}
 <!--Scanner Section-->
-<div class="container align-content-center p-5">
+<div class="container align-content-center p-2">
     <form action="/scan/" method="post" class="scan-new">{% csrf_token %}
         <div class="input-group input-group-lg">
             <span class="input-group-text" id="inputGroup-sizing-lg">Scanner</span>
@@ -20,12 +20,24 @@
 {% block content %}
 <!--Event Listing-->
 <div class="container-fluid">
+        <div class="row p-1">
+            <div class="col-sm text-center">
+                <span class="text-white">Location: </span><span class="text-primary">{{ loc.0.location }}</span>
+            </div>
+            <div class="col-sm text-center">
+                <span class="text-white">Date: </span><span class="text-primary">{{ date|date:'Y-m-d' }}</span>
+            </div>
+            <div class="col-sm text-center">
+                <span class="text-white">Counter: </span><span class="text-primary">{{ event_counter|length }}</span>
+            </div>
+        </div>
 
-    <h1 class="text-white">Location: <span class="text-danger">{{ loc.0.location }}</span></h1>
-    <h2 class="text-white">Date: <span class="text-primary">{{ date|date:'Y-m-d' }}</span></h2>
-    <h2 class="text-white">Counter: <span class="text-primary">
-        {{ event_counter|length }}
-    </span></h2>
+
+<!--    <h1 class="text-white">Location: <span class="text-danger">{{ loc.0.location }}</span></h1>-->
+<!--    <h2 class="text-white">Date: <span class="text-primary">{{ date|date:'Y-m-d' }}</span></h2>-->
+<!--    <h2 class="text-white">Counter: <span class="text-primary">-->
+<!--        {{ event_counter|length }}-->
+<!--    </span></h2>-->
 
     <table class="table table-sm table-hover bg-light">
         <caption>List of Events</caption>

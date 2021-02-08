@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap-grid.css' %}">
     <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap-reboot.css' %}">
+    <link rel="icon" href="{% static 'img/lit_logo_2_200x200.png' %}" height="80">
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
     <title>{% block title %}{% endblock %}</title>
@@ -14,12 +15,11 @@
 <body class="bg-dark">
 <!--Navigation-->
 <nav class="navbar smart-scroll navbar-expand-md navbar-light bg-info">
-    <a class="navbar-brand text-white" href="{% url 'event_list' %}">COIVD Check In Tracker</a>
+    <a class="navbar-brand text-white" href="{% url 'event_list' %}"><span><img src="{% static 'img/lit_logo_2_200x200.png' %}" height="60" alt="Lit logo"></span>COIVD Check In Tracker</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-
         <ul class="navbar-nav">
             <li class="nav-item active">
                 <a class="nav-link text-white" href="{% url 'reports' %}">Reports</a>
@@ -29,8 +29,15 @@
             </li>
         </ul>
     </div>
-    <p>Created by 1stLt Phansiri, Lit from DCO-IDM Co, 7th Comm Bn, III MIG, III MEF</p>
 </nav>
+<figure class="text-center my-4">
+    <blockquote class="blockquote text-white-50">
+        <p>Developed by 1stLt Phansiri, Lit from DCO-IDM Co., 7th Comm Bn, III MIG, III MEF</p>
+    </blockquote>
+    <div class="badge bg-primary text-wrap" style="width: 8rem;">
+        <em>"no one is coming it's up to us"</em>
+    </div>
+</figure>
 {% block scanner %} {% endblock %}
 <!--Main Content Section-->
 {% block content %} {% endblock %}
