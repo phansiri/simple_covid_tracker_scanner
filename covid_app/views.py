@@ -20,12 +20,9 @@ def event_list(request):
         loc = Location.objects.all()
 
     todays_date = datetime.now()
-    event_counter = events.filter(arrived__year=todays_date.year, arrived__month=todays_date.month, arrived__day=todays_date.day)
-    print('**********************')
-    print(todays_date)
-    print(events[0].arrived)
-    print(event_counter)
-    print('**********************')
+    event_counter = events.filter(arrived__year=todays_date.year,
+                                  arrived__month=todays_date.month,
+                                  arrived__day=todays_date.day)
 
     context = {
         'events': events,
