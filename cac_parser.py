@@ -1,91 +1,69 @@
-import datetime
-
-_1_jan_1000 = datetime.datetime(1000, 1, 1)
-
-
 class CACBarcode:
+    branch_list = {
+        'A': 'USA',
+        'C': "USCG",
+        "D": "DOD",
+        "F": "USAF",
+        "H": "USPHS",
+        "M": "USMC",
+        "N": "USN",
+        "O": "NOAA",
+        "1": "Foreign Army",
+        "2": "Foreign Navy",
+        "3": "Foreign Marine Corps",
+        "4": "Foreign Air Force",
+        "X": "Other"
+    }
 
-    def read(self, data, start, finish=None):
-        pass
+    category_list = {
+        "A": "Active Duty member",
+        "B": "Presidential Appointee",
+        "C": "DoD civil service employee",
+        "D": "100% disabled American veteran",
+        "E": "DoD contract employee",
+        "F": "Former member",
+        "N": "National Guard member",
+        "G": "National Guard member",
+        "H": "Medal of Honor recipient",
+        "I": "Non-DoD Civil Service Employee",
+        "J": "Academy student",
+        "K": "non-appropriated fund (NAF) DoD employee",
+        "L": "Lighthouse service",
+        "M": "Non-Government agency personnel",
+        "O": "Non-DoD contract employee",
+        "Q": "Reserve retiree not yet eligible for retired pay",
+        "R": "Retired Uniformed Service member eligible for retired pay",
+        "V": "Reserve",
+        "S": "Reserve",
+        "T": "Foreign military member",
+        "U": "Foreign national employee",
+        "W": "DoD Beneficiary",
+        "Y": "Retired DoD Civil Service Employees"
+    }
 
     def _getbranch(self, code) -> str:
-        """
-        Called by constructor, don't call this method
-        http://www.cac.mil/docs/DoD-ID-Bar-Code_SDK-Formats_v7-5-0_Sep2012.pdf, page 50
-        :param code: Branch Code
-        :return: Branch Service String
-        """
-        # Series of ifs for speed since this is a one way conversion
-        if code == "A": return "USA"
-        if code == "C": return "USCG"
-        if code == "D": return "DOD"
-        if code == "F": return "USAF"
-        if code == "H": return "USPHS"
-        if code == "M": return "USMC"
-        if code == "N": return "USN"
-        if code == "O": return "NOAA"
-        if code == "1": return "Foreign Army"
-        if code == "2": return "Foreign Navy"
-        if code == "3": return "Foreign Marine Corps"
-        if code == "4": return "Foreign Air Force"
-        if code == "X": return "Other"
-        return "N/A"
+        return self.branch_list.get(code, 'N/A')
 
-    def _getcategory(self, code):
-        """
-        Called by constructor, don't call this method
-        http://www.cac.mil/docs/DoD-ID-Bar-Code_SDK-Formats_v7-5-0_Sep2012.pdf, page 51
-        :param code: Personnel Category Code
-        :return: String of category description
-        """
-        # Series of ifs for speed since this is a one way conversion
-        if code == "A": return "Active Duty member"
-        if code == "B": return "Presidential Appointee"
-        if code == "C": return "DoD civil service employee"
-        if code == "D": return "100% disabled American veteran"
-        if code == "E": return "DoD contract employee"
-        if code == "F": return "Former member"
-        if code == "N" or code == "G": return "National Guard member"
-        if code == "H": return "Medal of Honor recipient"
-        if code == "I": return "Non-DoD Civil Service Employee"
-        if code == "J": return "Academy student"
-        if code == "K": return "non-appropriated fund (NAF) DoD employee"
-        if code == "L": return "Lighthouse service"
-        if code == "M": return "Non-Government agency personnel"
-        if code == "N": return "National Guard member"
-        if code == "O": return "Non-DoD contract employee"
-        if code == "Q": return "Reserve retiree not yet eligible for retired pay"
-        if code == "R": return "Retired Uniformed Service member eligible for retired pay"
-        if code == "V" or code == "S": return "Reserve"
-        if code == "T": return "Foreign military member"
-        if code == "U": return "Foreign national employee"
-        if code == "V": return "Reserve member"
-        if code == "W": return "DoD Beneficiary"
-        if code == "Y": return "Retired DoD Civil Service Employees"
-        return "N/A"
+    def _getcategory(self, code) -> str:
+        return self.category_list.get(code, "N/A")
 
 
 class PDF417Barcode(CACBarcode):
-
     def __init__(self, data):
-        # self.data = data
+        if len(data) == 99:
+            # parse with new method
+            self.branch = self._getbranch(data[71])
+            self.category = self._getcategory(data[70])
+            self.edipi = int(data[1:8], 32)
+            self.fname = data[16:36]
+            self.lname = data[37:63]
+            self.rank = data[74:80]
 
-        # 2D barcode Version "1" and Version "N" have 88 and 89 chars
-        # VN's 89'th char is middle initial
-        if len(data) != 88 and len(data) != 89:
-            raise Exception
-
-        self.barcode_version = data[1]
-
-        # Only version 1 and N supported
-        # if self.barcode_version != "1" and self.barcode_version != "N":
-        #     print('************************')
-        #     print("Version", self.barcode_version, "not recognized!")
-        #     raise Exception
-
-        self.branch = self._getbranch(data[66])
-        self.category = self._getcategory(data[65])
-        self.edipi = int(data[8:15], 32)
-        self.fname = data[15:35]
-        self.lname = data[35:61]
-        self.rank = data[69:75]
+        if len(data) == 89 or len(data) == 88:
+            # parse with old method
+            self.branch = self._getbranch(data[66])
+            self.category = self._getcategory(data[65])
+            self.edipi = int(data[8:15], 32)
+            self.fname = data[15:35]
+            self.lname = data[35:61]
+            self.rank = data[69:75]
