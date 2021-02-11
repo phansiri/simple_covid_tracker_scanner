@@ -5,6 +5,8 @@ __pycache__/
 *$py.class
 *.sqlite3
 start_up_options/
+*.ipynb
+new_id_cards.txt
 
 # C extensions
 *.so
