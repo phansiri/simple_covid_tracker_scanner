@@ -13,7 +13,6 @@ def event_list(request):
     events = Event.objects.all().order_by('-arrived')
     loc = Location.objects.exists()
 
-
     if loc is False:
         return render(request, 'covid_app/set_location.html')
     else:
