@@ -1,3 +1,5 @@
+# Moved to [https://github.com/marinecoders/covid_tracker_scanner](https://github.com/marinecoders/covid_tracker_scanner)
+
 # Simple Covid Tracker with CAC scanner
 
 ## Set Up
